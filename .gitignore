@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.whatsapp-auth/
+.magicmail-whatsapp-auth/
+.env
+*.log

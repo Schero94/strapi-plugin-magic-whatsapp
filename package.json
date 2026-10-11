@@ -1,0 +1,45 @@
+{
+  "name": "strapi-plugin-magic-whatsapp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Local Strapi 5 WhatsApp integration workbench plugin",
+  "exports": {
+    "./package.json": "./package.json",
+    "./strapi-admin": {
+      "source": "./admin/src/index.js",
+      "import": "./dist/admin/index.mjs",
+      "require": "./dist/admin/index.js",
+      "default": "./dist/admin/index.js"
+    },
+    "./strapi-server": {
+      "source": "./server/src/index.js",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    }
+  },
+  "files": ["dist", "strapi-admin.js", "strapi-server.js"],
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "build": "strapi-plugin build",
+    "verify": "strapi-plugin verify"
+  },
+  "devDependencies": {
+    "@strapi/sdk-plugin": "^6.1.1",
+    "@strapi/strapi": "5.57.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^5.57.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "engines": { "node": "22.x" },
+  "strapi": {
+    "kind": "plugin",
+    "name": "magic-whatsapp",
+    "displayName": "Magic WhatsApp"
+  }
+}
