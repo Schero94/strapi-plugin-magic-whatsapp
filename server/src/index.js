@@ -6,6 +6,6 @@ module.exports = {
   destroy() {},
   config: { default: {}, validator() {} },
   controllers: {},
-  services: {},
+  services: { whatsapp: require('./services/whatsapp') },
   routes: { admin: { type: 'admin', routes: [] }, 'content-api': { type: 'content-api', routes: [] } },
 };
