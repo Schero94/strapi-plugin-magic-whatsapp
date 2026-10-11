@@ -22,12 +22,14 @@
   "files": ["dist", "strapi-admin.js", "strapi-server.js"],
   "scripts": {
     "test": "node --test tests/*.test.js",
-    "build": "strapi-plugin build",
-    "verify": "strapi-plugin verify"
+    "build": "strapi-plugin build && node scripts/build-server-bundle.mjs && npm run verify:runtime",
+    "verify": "strapi-plugin verify",
+    "verify:runtime": "node scripts/verify-server-bundle.mjs"
   },
   "devDependencies": {
     "@strapi/sdk-plugin": "^6.1.1",
     "@strapi/strapi": "5.57.0",
+    "esbuild": "^0.28.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
