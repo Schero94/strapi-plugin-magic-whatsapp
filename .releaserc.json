@@ -10,7 +10,7 @@
       }
     ],
     "@semantic-release/changelog",
-    "@semantic-release/github",
+    ["@semantic-release/github", { "labels": false }],
     [
       "@semantic-release/git",
       {
