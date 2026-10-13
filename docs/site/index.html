@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Install and configure Magic WhatsApp, the permission-scoped WhatsApp transport plugin for Strapi 5.">
+    <title>Magic WhatsApp | Strapi plugin documentation</title>
+    <link rel="stylesheet" href="./site.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a class="brand" href="#main-content" aria-label="Magic WhatsApp documentation home">
+          <span class="brand-mark" aria-hidden="true">MW</span>
+          <span>Magic WhatsApp</span>
+        </a>
+        <nav class="top-links" aria-label="Primary navigation">
+          <a href="#features">Features</a>
+          <a href="#security">Security</a>
+          <a href="#api">API</a>
+          <a href="#releases">Releases</a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="hero-wrap">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <span class="eyebrow">Strapi 5 plugin</span>
+          <h1 id="page-title">WhatsApp transport for Strapi.</h1>
+          <p>Magic WhatsApp owns the WhatsApp connection, message delivery, and templates. It starts disconnected and only pairs or sends after an authorized administrator acts.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#install">Install from GitHub</a>
+            <a class="button" href="https://github.com/Schero94/strapi-plugin-magic-whatsapp">View source</a>
+          </div>
+          <div class="badges" aria-label="Compatibility and package status">
+            <span class="badge">Strapi ^5.57.0</span>
+            <span class="badge">Node.js 22</span>
+            <span class="badge">GitHub install</span>
+            <span class="badge">npm private</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <main class="layout" id="main-content">
+      <nav class="side-nav" aria-label="Documentation sections">
+        <a href="#features">Features</a>
+        <a href="#install">Install</a>
+        <a href="#configuration">Configuration</a>
+        <a href="#security">Security</a>
+        <a href="#api">API</a>
+        <a href="#releases">Releases</a>
+      </nav>
+
+      <div class="content">
+        <section class="section" id="features" aria-labelledby="features-title">
+          <h2 id="features-title">Features</h2>
+          <p class="section-lead">One Strapi plugin owns WhatsApp transport for the workbench. The connection starts disconnected; booting Strapi does not pair a device or send a message.</p>
+          <div class="card-grid">
+            <article class="card">
+              <h3>Pair only on request</h3>
+              <p>An administrator with connection permission starts pairing. A QR is created only during that action and is returned only through the protected pairing flow.</p>
+            </article>
+            <article class="card">
+              <h3>Manage message templates</h3>
+              <p>Authorized users can list, create, edit, and delete templates stored in the Magic WhatsApp Strapi plugin store.</p>
+            </article>
+            <article class="card">
+              <h3>Send with checks</h3>
+              <p>Sending requires a separate permission. The server validates the international phone number and message length, checks WhatsApp registration, and applies a per-admin rate limit.</p>
+            </article>
+            <article class="card">
+              <h3>Internal Magic Link delivery</h3>
+              <p>The Magic Link plugin can call the registered WhatsApp service to send a bounded-expiry login URL. This is an internal Strapi service contract, not a public endpoint.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="install" aria-labelledby="install-title">
+          <h2 id="install-title">Install from GitHub</h2>
+          <p class="section-lead">The package is private on npm. Install it from its GitHub repository instead. npm installs the package dependencies and devDependencies, then runs <code>prepare</code> to build the plugin before installing it.</p>
+          <div class="code-card">
+            <div class="code-label"><span>Install the repository</span></div>
+            <pre><code>npm install github:Schero94/strapi-plugin-magic-whatsapp</code></pre>
+          </div>
+          <p>Enable the plugin in <code>config/plugins.ts</code> or <code>config/plugins.js</code>:</p>
+          <div class="code-card">
+            <div class="code-label"><span>config/plugins.ts</span></div>
+            <pre><code>export default () =&gt; ({
+  'magic-whatsapp': {
+    enabled: true,
+  },
+});</code></pre>
+          </div>
+          <p>Build the Strapi admin and start the application:</p>
+          <div class="code-card">
+            <div class="code-label"><span>Build and start</span></div>
+            <pre><code>npm run build
+npm run develop</code></pre>
+          </div>
+          <p>Strapi 5.57 or a compatible Strapi 5 release and Node.js 22 are required.</p>
+        </section>
+
+        <section class="section" id="configuration" aria-labelledby="configuration-title">
+          <h2 id="configuration-title">Configuration</h2>
+          <p class="section-lead">The plugin has no connection secret or auth-state path option. It accepts an optional socket factory for a host integration or fake transport.</p>
+          <div class="table-wrap">
+            <table>
+              <caption>Magic WhatsApp server configuration</caption>
+              <thead>
+                <tr><th scope="col">Option</th><th scope="col">Default</th><th scope="col">Purpose</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>socketFactory</code></td><td><code>null</code></td><td>Optional function that creates the WhatsApp socket. Tests can inject a fake socket so they never need a live account.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Unsupported configuration keys are rejected. Do not put credentials or auth-state data in Strapi configuration.</p>
+        </section>
+
+        <section class="section" id="security" aria-labelledby="security-title">
+          <h2 id="security-title">Security and permissions</h2>
+          <p class="section-lead">Every route is an authenticated Strapi admin route with a server-enforced permission. The admin UI checks the same permissions for navigation and controls, but the route policy remains the security boundary.</p>
+          <div class="table-wrap">
+            <table>
+              <caption>Registered Magic WhatsApp permissions</caption>
+              <thead>
+                <tr><th scope="col">Permission</th><th scope="col">Allows</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>plugin::magic-whatsapp.overview.access</code></td><td>Open the plugin overview.</td></tr>
+                <tr><td><code>plugin::magic-whatsapp.status.view</code></td><td>Read connection status.</td></tr>
+                <tr><td><code>plugin::magic-whatsapp.connection.manage</code></td><td>Connect, view the pairing QR, disconnect, or log out and clear the saved session.</td></tr>
+                <tr><td><code>plugin::magic-whatsapp.templates.list</code></td><td>List stored templates.</td></tr>
+                <tr><td><code>plugin::magic-whatsapp.templates.edit</code></td><td>Create, edit, and delete templates.</td></tr>
+                <tr><td><code>plugin::magic-whatsapp.messages.send</code></td><td>Send direct and template messages.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>Pairing and message delivery</h3>
+          <ul>
+            <li>The service starts in the <code>disconnected</code> state. It does not connect automatically at startup.</li>
+            <li>Pairing starts only after an authorized administrator chooses to connect. The QR is available only to an authenticated administrator with connection permission.</li>
+            <li>Direct and template sends require the send permission. Recipients must use international format, and the server checks that the number is registered before delivery.</li>
+            <li>Messages are limited to 4,096 characters. Sending is rate-limited per admin. Template variables are validated before rendering.</li>
+            <li>Disconnect closes the transport but keeps the saved session. Log out is a separate action that removes the auth-state directory.</li>
+          </ul>
+          <h3>Local auth state</h3>
+          <p>Baileys credentials are kept on the Strapi host under <code>~/.strapi/magic-whatsapp/&lt;app-id&gt;/.whatsapp-auth</code>. The directory is created with owner-only permissions and the plugin rejects a symlinked auth directory. The <code>.whatsapp-auth</code> ignore rule keeps it out of Git. Restrict access to the Strapi process and never copy this directory into source control, logs, issue reports, or shared artifacts.</p>
+          <p class="callout warning">Pairing and sending affect a real WhatsApp account. Local tests use fake transports and do not pair, request a QR, or deliver messages.</p>
+        </section>
+
+        <section class="section" id="api" aria-labelledby="api-title">
+          <h2 id="api-title">Admin API and service contract</h2>
+          <p class="section-lead">Routes below use the Strapi admin API base. Each requires an authenticated administrator and the listed permission. The plugin declares no Content API routes.</p>
+          <div class="table-wrap">
+            <table>
+              <caption>Magic WhatsApp admin routes</caption>
+              <thead>
+                <tr><th scope="col">Method</th><th scope="col">Path</th><th scope="col">Permission</th><th scope="col">Purpose</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>GET</code></td><td><code>/magic-whatsapp/status</code></td><td>Status view</td><td>Read disconnected, connecting, connected, or error state.</td></tr>
+                <tr><td><code>POST</code></td><td><code>/magic-whatsapp/connection</code></td><td>Connection manage</td><td>Start pairing or return the current connection state.</td></tr>
+                <tr><td><code>GET</code></td><td><code>/magic-whatsapp/connection/qr</code></td><td>Connection manage</td><td>Read the temporary pairing QR while pairing is pending.</td></tr>
+                <tr><td><code>DELETE</code></td><td><code>/magic-whatsapp/connection</code></td><td>Connection manage</td><td>Disconnect without deleting the saved session.</td></tr>
+                <tr><td><code>DELETE</code></td><td><code>/magic-whatsapp/connection/session</code></td><td>Connection manage</td><td>Log out and remove the saved auth state.</td></tr>
+                <tr><td><code>GET</code></td><td><code>/magic-whatsapp/templates</code></td><td>Templates list</td><td>List valid stored templates.</td></tr>
+                <tr><td><code>POST</code>, <code>PUT</code>, <code>DELETE</code></td><td><code>/magic-whatsapp/templates</code> and <code>/magic-whatsapp/templates/:id</code></td><td>Templates edit</td><td>Create, update, or delete a template.</td></tr>
+                <tr><td><code>POST</code></td><td><code>/magic-whatsapp/messages</code></td><td>Messages send</td><td>Send a direct text message.</td></tr>
+                <tr><td><code>POST</code></td><td><code>/magic-whatsapp/messages/templates</code></td><td>Messages send</td><td>Render a stored template and send it.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>Magic Link service</h3>
+          <p>The Magic Link plugin can resolve the registered <code>magic-whatsapp</code> service and call <code>sendMagicLink({ phoneNumber, loginUrl, expiresInSeconds })</code>. It requires a connected transport, an international phone number, and an HTTPS login URL. HTTP is accepted for localhost only. URLs are limited to 2,048 characters and expiry must be from 1 second to 24 hours. The message includes the login URL and expiry, then uses the same recipient check and send path as other messages. The method returns <code>{ success: true }</code> on delivery and throws a sanitized error on failure. This is an internal service call, not an HTTP route.</p>
+          <h3>Fake transport</h3>
+          <p>Unit tests inject <code>socketFactory</code> and use a fake Baileys socket to exercise connection, template, Magic Link, and send behavior. They do not need a WhatsApp account. Keep this pattern for local test and acceptance work.</p>
+        </section>
+
+        <section class="section" id="releases" aria-labelledby="releases-title">
+          <h2 id="releases-title">Releases and package status</h2>
+          <p class="section-lead">This repository uses Conventional Commits and GitHub-only semantic-release. Releases create GitHub tags and release notes. The npm package remains private and is not published.</p>
+          <div class="code-card">
+            <div class="code-label"><span>Run checks locally</span></div>
+            <pre><code>npm ci
+npm test
+npm run verify
+npm run build</code></pre>
+          </div>
+          <p>The test suite uses fake transports. Do not run pairing or send actions during verification.</p>
+          <div class="link-list">
+            <a href="https://github.com/Schero94/strapi-plugin-magic-whatsapp">GitHub repository</a>
+            <a href="https://github.com/Schero94/strapi-plugin-magic-whatsapp/releases">GitHub releases</a>
+            <a href="https://docs.npmjs.com/cli/v11/using-npm/scripts">npm prepare lifecycle documentation</a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Magic WhatsApp is installed from GitHub. It is not published to npm.</p>
+      <p><a href="https://github.com/Schero94/strapi-plugin-magic-whatsapp">Source code and issue tracker</a></p>
+    </footer>
+  </body>
+</html>

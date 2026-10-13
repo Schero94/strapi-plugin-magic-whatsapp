@@ -3,7 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "type": "commonjs",
-  "description": "Local Strapi 5 WhatsApp integration workbench plugin",
+  "description": "Permission-scoped WhatsApp delivery and templates for Strapi 5",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Schero94/strapi-plugin-magic-whatsapp.git"
+  },
+  "homepage": "https://schero94.github.io/strapi-plugin-magic-whatsapp/",
   "exports": {
     "./package.json": "./package.json",
     "./strapi-admin": {
@@ -19,26 +24,51 @@
       "default": "./dist/server/index.js"
     }
   },
-  "files": ["dist", "strapi-admin.js", "strapi-server.js"],
+  "files": [
+    "dist",
+    "strapi-admin.js",
+    "strapi-server.js"
+  ],
   "scripts": {
     "test": "node --test tests/*.test.js",
     "build": "strapi-plugin build && node scripts/build-server-bundle.mjs && npm run verify:runtime",
+    "prepare": "npm run build",
     "verify": "strapi-plugin verify",
     "verify:runtime": "node scripts/verify-server-bundle.mjs"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^7.0.0",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^11.0.1",
+    "@semantic-release/github": "^12.0.10",
+    "@semantic-release/npm": "^13.2.0",
+    "@semantic-release/release-notes-generator": "^14.1.1",
+    "@strapi/design-system": "^2.2.4",
+    "@strapi/icons": "^2.2.4",
     "@strapi/sdk-plugin": "^6.1.1",
     "@strapi/strapi": "5.57.0",
-    "esbuild": "^0.28.1",
+    "esbuild": "^0.28.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "semantic-release": "^25.0.9"
+  },
+  "dependencies": {
+    "baileys": "^7.0.0-rc14",
+    "qrcode": "^1.5.4"
   },
   "peerDependencies": {
+    "@strapi/design-system": "^2.2.4",
+    "@strapi/icons": "^2.2.4",
     "@strapi/strapi": "^5.57.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
-  "engines": { "node": "22.x" },
+  "overrides": {
+    "sharp": "0.35.5"
+  },
+  "engines": {
+    "node": "22.x"
+  },
   "strapi": {
     "kind": "plugin",
     "name": "magic-whatsapp",
