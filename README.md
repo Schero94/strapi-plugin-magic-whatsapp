@@ -77,7 +77,7 @@ All routes use the Strapi admin API and require an authenticated admin plus the 
 ## Development and releases
 
 ```sh
-npm ci
+npm ci --legacy-peer-deps
 npm test
 npm run verify
 npm run build
