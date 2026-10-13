@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/Schero94/strapi-plugin-magic-whatsapp/compare/v1.0.0...v1.0.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* align CI installs with lockfile settings ([4ed4c72](https://github.com/Schero94/strapi-plugin-magic-whatsapp/commit/4ed4c72e6b498f426b0f31420de8e0832954f60a))
+* build before verifying WhatsApp package exports ([bbdf206](https://github.com/Schero94/strapi-plugin-magic-whatsapp/commit/bbdf2068aba4c83c2943e4f9ecf02ada0b32c778))
+
 # 1.0.0 (2026-10-13)
 
 

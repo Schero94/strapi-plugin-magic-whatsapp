@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-magic-whatsapp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "type": "commonjs",
   "description": "Permission-scoped WhatsApp delivery and templates for Strapi 5",
